@@ -33,12 +33,33 @@ wss.on('request', req => {
     });
     let client = new Client();
     client.on('qr', qr => {
-        connection.send(qr);
-        console.log(qr);
+        connection.send(JSON.stringify({connected: false, qr}));
     });
+    client.on('authenticated', session => {
+        connection.send(JSON.stringify({connected: true, qr: null}));
+    });
+    client.initialize();
     connection.on('close', (reason, desc) => {
         const index = activeConn.indexOf(c => c.id == id);
+        console.log("desconectado");
         activeConn.splice(index, 1);
-        console.log("Desconectado");
+    });
+    connection.on('message', data => {
+        console.log(data.utf8Data);
+        const { phoneNumber, howMany, interval, text } = JSON.parse(data.utf8Data).message;
+        let counter = 0;
+        const intervalID = setInterval(() => {
+            if(counter < howMany){
+                client.sendMessage(`${phoneNumber}@c.us`, text);
+                counter++;
+            }else{
+                clearInterval(intervalID);
+                client.logout();
+            }
+        }, parseInt(interval) * 1000);
     });
 });
+
+/* setInterval(() => {
+    console.log(`${activeConn.length} usuarios conectados`);
+}, 10000); */

@@ -4,9 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WppSpam</title>
+    <style>
+        #celphone1{
+            width: 30px;
+        }
+        #celphone2{
+            width: 15px;
+        }
+    </style>
 </head>
 <body>
-    <div id="qrcode"></div>
+    <div id="connect">
+        <h1>Conectate leyendo el qr con whatsapp web en tu cel</h1>
+        <h3>Usar con discrecion, excepto con zordon</h3>
+        <div id="qrcode"></div>
+    </div>
+    <div style="display: none;" id="auto-mess">
+        <form action="#" id="send-mess">
+            <label for="numero-cel-country">Numero de celular</label>
+            <input maxlength="2" name="numero-cel-country" type="text" id="celphone1" pattern="[0-9]{2}" required> -
+            <input maxlength="1" name="numero-cel-region" type="text" id="celphone2" pattern="[0-9]{1}" required> -
+            <input maxlength="10" name="numero-cel" type="text" id="celphone3" pattern="[0-9]{10}" required>
+            <br>
+            <label for="cantidad">Cuantas veces lo mando?</label>
+            <input name="cantidad" type="number" max="100" min="1" id="quant-mess">
+            <br>
+            <label for="time">Cada cuantos segundos?</label>
+            <input name="time" type="number" min="10" id="time-mess">
+            <br>
+            <textarea required id="message" cols="30" rows="10" placeholder="Mensaje a enviar"></textarea>
+            <br>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+    
 
     <script src="./libs/qrcode.min.js"></script>
     <script src="./scripts/wppSpam.js"></script>
