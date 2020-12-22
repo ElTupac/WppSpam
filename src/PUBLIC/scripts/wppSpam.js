@@ -3,7 +3,7 @@ window.onload = () => {
     console.log(URL);
     URL = URL.replace(/https?/, "wss");
     console.log(URL);
-    let socket = new WebSocket('URL');
+    let socket = new WebSocket(URL);
     socket.onopen = e => {
         console.log("Conectado");
     };
