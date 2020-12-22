@@ -2,7 +2,7 @@ let socket;
 window.onload = () => {
     let URL = window.location.href;//"https://wpp-spam.herokuapp.com/";
     console.log(URL);
-    URL = URL.replace(/https?/, "ws");
+    URL = URL.replace(/https?/, "wss");
     console.log(URL);
     socket = new WebSocket(URL);
     socket.onopen = e => {
