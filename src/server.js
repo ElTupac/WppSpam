@@ -34,9 +34,11 @@ wss.on('request', req => {
     let client = new Client();
     client.on('qr', qr => {
         connection.send(qr);
+        console.log(qr);
     });
     connection.on('close', (reason, desc) => {
         const index = activeConn.indexOf(c => c.id == id);
         activeConn.splice(index, 1);
+        console.log("Desconectado");
     });
 });
