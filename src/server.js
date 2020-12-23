@@ -31,9 +31,14 @@ wss.on('request', req => {
         connection,
         id
     });
+    let count = 0;
     let client = new Client({puppeteer:{ args: ['--no-sandbox'] }});
     client.on('qr', qr => {
+        count++;
         connection.send(JSON.stringify({connected: false, qr}));
+        if(count == 10) {
+            client.logout();
+        }
     });
     client.on('authenticated', session => {
         connection.send(JSON.stringify({connected: true, qr: null}));
@@ -43,6 +48,9 @@ wss.on('request', req => {
         const index = activeConn.indexOf(c => c.id == id);
         console.log("desconectado");
         activeConn.splice(index, 1);
+        setTimeout(() => {
+            client.logout();
+        }, 10000);
     });
     connection.on('message', data => {
         console.log(data.utf8Data);
