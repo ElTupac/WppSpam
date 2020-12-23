@@ -31,7 +31,7 @@ wss.on('request', req => {
         connection,
         id
     });
-    let client = new Client();
+    let client = new Client({puppeteer:{ args: ['--no-sandbox'] }});
     client.on('qr', qr => {
         connection.send(JSON.stringify({connected: false, qr}));
     });
