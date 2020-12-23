@@ -49,4 +49,6 @@ function checkAndSend(event){
             text: message
         }
     }));
+    document.getElementById("auto-mess").style.display = "none";
+    document.write("Listo! Se fue spameado! Espera a que se manden los mensajes para enviar otro spam");
 }
